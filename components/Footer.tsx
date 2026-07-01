@@ -62,7 +62,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-stone-100 pt-6 flex flex-wrap justify-between items-center gap-3">
-        <p className="text-stone-400 text-xs">© 2025 CourseHub. All rights reserved.</p>
+        <p className="text-stone-400 text-xs">© 2026 CourseHub. All rights reserved.</p>
         <p className="text-stone-400 text-xs">Made with ❤️ in India 🇮🇳</p>
       </div>
     </footer>
