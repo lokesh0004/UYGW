@@ -84,14 +84,26 @@ export default function Hero() {
         const decimals = parseInt(el.dataset.decimals || "0");
         ScrollTrigger.create({
           trigger: el, start: "top 90%", once: true,
-          onEnter: () => {
-            gsap.fromTo({ val: 0 }, { val: end, duration: 2.5, ease: "power1.out",
-              onUpdate: function () {
-                const v = decimals ? this.targets()[0].val.toFixed(decimals) : Math.round(this.targets()[0].val);
-                el.textContent = v + suffix;
-              },
-            });
-          },
+         onEnter: () => {
+  const counter = { val: 0 };
+
+  gsap.fromTo(
+    counter,
+    { val: 0 },
+    {
+      val: end,
+      duration: 2.5,
+      ease: "power1.out",
+      onUpdate: () => {
+        const v = decimals
+          ? counter.val.toFixed(decimals)
+          : Math.round(counter.val);
+
+        el.textContent = v + suffix;
+      },
+    }
+  );
+},
         });
       });
     },
