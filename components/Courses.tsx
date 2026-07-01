@@ -23,17 +23,51 @@ function CourseCard({ course }: { course: Course }) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = cardRef.current!.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    gsap.to(cardRef.current, { rotateY: x * 10, rotateX: -y * 10, transformPerspective: 800, duration: 0.4, ease: "power2.out" });
-    gsap.to(cardRef.current?.querySelector(".card-shine"), { opacity: 0.15, x: x * 30, y: y * 30, duration: 0.3 });
-  };
+  if (!cardRef.current) return;
+
+  const rect = cardRef.current.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+  gsap.to(cardRef.current, {
+    rotateY: x * 10,
+    rotateX: -y * 10,
+    transformPerspective: 800,
+    duration: 0.4,
+    ease: "power2.out",
+  });
+
+  const shine = cardRef.current.querySelector(".card-shine");
+
+  if (shine) {
+    gsap.to(shine, {
+      opacity: 0.15,
+      x: x * 30,
+      y: y * 30,
+      duration: 0.3,
+    });
+  }
+};
 
   const handleMouseLeave = () => {
-    gsap.to(cardRef.current, { rotateY: 0, rotateX: 0, duration: 0.7, ease: "elastic.out(1, 0.4)" });
-    gsap.to(cardRef.current?.querySelector(".card-shine"), { opacity: 0, duration: 0.3 });
-  };
+  if (!cardRef.current) return;
+
+  gsap.to(cardRef.current, {
+    rotateY: 0,
+    rotateX: 0,
+    duration: 0.7,
+    ease: "elastic.out(1, 0.4)",
+  });
+
+  const shine = cardRef.current.querySelector(".card-shine");
+
+  if (shine) {
+    gsap.to(shine, {
+      opacity: 0,
+      duration: 0.3,
+    });
+  }
+};
 
   return (
     <div
